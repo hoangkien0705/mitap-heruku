@@ -18,7 +18,13 @@ public class Constants {
 	public static final String REGISTER_SOCIAL = "/register_social";
 	public static final String LOGIN = "/login";
 	public static final String REGISTER_ACCURACY_PHONE = "/register_accuracy_phone";
+	public static final String REGISTER_NOT_AUTH_PHONE = "/register_not_auth_phone";
+	public static final String USER_AUTH_PHONE = "/user_register_auth_phone";
 	public static final String REGISTER_ACCURACY_EMAIL = "/register_accuracy_email";
 	public static final String NEW_PASSWORD = "/new_password";
 	public static final String LIMIT = "limit";
+	
+	public static final String CODE_VERIFY = "M-%s";
+	public static final String SYNTAX_SMS_VERIFY_CODE = CODE_VERIFY + " is your Mitap verification code";
+	public static final long TIME_EXPIRED_VERIFY_CODE = 60; //thời gian chờ user xác thực là 60 phút
 }

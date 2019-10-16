@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PublicController extends MitapController {
-	@RequestMapping(value = "/hello", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "css/hello", method = { RequestMethod.POST, RequestMethod.GET })
 	public ResponseEntity<String> index(HttpServletRequest request) {
 		return new ResponseEntity<String>("hoakngien", HttpStatus.OK);
 	}  

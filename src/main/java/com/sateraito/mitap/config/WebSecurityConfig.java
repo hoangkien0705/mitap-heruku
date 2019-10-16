@@ -52,6 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers(HttpMethod.POST, Constants.LOGIN).permitAll()
 	        .antMatchers(HttpMethod.GET, Constants.LOGIN).permitAll()
 	        .antMatchers(Constants.REGISTER_ACCURACY_PHONE).permitAll()
+	        .antMatchers(Constants.REGISTER_NOT_AUTH_PHONE).permitAll()
+	        .antMatchers(Constants.USER_AUTH_PHONE).permitAll()
 	        .antMatchers(Constants.REGISTER_ACCURACY_EMAIL).permitAll()
 	        .antMatchers(Constants.REGISTER_COMPACT).permitAll()
 	        .antMatchers(Constants.REGISTER_SOCIAL).permitAll()

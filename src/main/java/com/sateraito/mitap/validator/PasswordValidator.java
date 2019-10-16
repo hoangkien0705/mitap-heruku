@@ -14,7 +14,8 @@ public class PasswordValidator {
 			.{8,}             # anything, at least eight places though
 			$                 # end-of-string
 	 */
-	private static final String PASSWORD_REGEX = "^(?=.*[0-9])"
+	private static final String PASSWORD_REGEX = 
+			"^(?=.*[0-9])"
 			+ "(?=.*[a-z])"
 //			+ "(?=.*[A-Z])" 
 //			+ "(?=.*[@#$%^&+=])"

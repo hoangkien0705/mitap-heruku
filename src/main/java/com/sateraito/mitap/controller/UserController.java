@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.model.request.UpdatePasswordByTokenRequest;
 import com.sateraito.mitap.model.request.UpdatePasswordRequest;
+import com.sateraito.mitap.model.request.UserAuthPhoneRequest;
 import com.sateraito.mitap.model.request.UserRegisterRequest;
 import com.sateraito.mitap.model.response.ReponseMdl;
 import com.sateraito.mitap.utils.Log;
@@ -50,6 +51,22 @@ public class UserController extends MitapController {
 //	public ResponseEntity<ReponseMdl> registerAccuracyEmail(@RequestBody UserRegisterRequest userRegisterRequest) {
 //		return userService.register(userRegisterRequest);
 //	}
+	
+	/**
+	 * Đăng ký với số điện thoại chưa xác thực ở client (thực hiện xác thực tại server)
+	 */
+	@RequestMapping(value = Constants.REGISTER_NOT_AUTH_PHONE, method = { RequestMethod.POST })
+	public ResponseEntity<ReponseMdl> registerNotAuthPhone(@RequestBody UserRegisterRequest userRegisterRequest) {
+		return userService.registerNotAuthPhone(userRegisterRequest);
+	}
+	
+	/**
+	 * Người dùng nhập mã xác thực
+	 */
+	@RequestMapping(value = Constants.USER_AUTH_PHONE, method = { RequestMethod.POST })
+	public ResponseEntity<ReponseMdl> userAuthPhone(@RequestBody UserAuthPhoneRequest userAuthPhone) {
+		return userService.userAuthPhone(userAuthPhone);
+	}
 	
 	/**
 	 * Lấy các thông tin cơ bản của user thông qua token

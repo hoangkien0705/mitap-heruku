@@ -14,6 +14,7 @@ import com.sateraito.mitap.repo.PlaceRepo;
 import com.sateraito.mitap.repo.PlaceTravelRepo;
 import com.sateraito.mitap.repo.PriceServiceRepo;
 import com.sateraito.mitap.repo.RoleRepo;
+import com.sateraito.mitap.repo.SmsAccuracyPhoneRepo;
 import com.sateraito.mitap.repo.TouristRatingDirectionRepo;
 import com.sateraito.mitap.repo.TravelRepo;
 import com.sateraito.mitap.repo.UserDirectionRepo;
@@ -24,6 +25,8 @@ import com.sateraito.mitap.repo.UserRoleRepo;
 public class MitapService {
 	@Autowired
 	protected UserRepo userRepo;
+	@Autowired
+	protected SmsAccuracyPhoneRepo smsAccuracyPhoneRepo;
 	@Autowired
 	protected UserRoleRepo userRoleRepo;
 	@Autowired
@@ -55,6 +58,11 @@ public class MitapService {
 	public static final int USER_NOT_EXIST = 9;
 	public static final int TWO_PASSWORD_SAME = 10;
 	public static final int OLD_PASSWORD_INCORRECT = 11;
+	public static final int USERNAME_INVALID = 12;
+	public static final int PHONE_NUMBER_NOT_EMPTY = 13;
+	public static final int VERIFY_CODE_NOTFOUND = 14;
+	public static final int VERIFY_CODE_FAIL = 15;
+	public static final int AUTH_TIME_EXPIRED = 16;
 	
 	public static Map<Integer, String> mapErrorReponse = new HashMap<>();
 	
@@ -69,6 +77,11 @@ public class MitapService {
 		mapErrorReponse.put(USER_NOT_EXIST, "User not exist");
 		mapErrorReponse.put(TWO_PASSWORD_SAME, "These 2 passwords are the same");
 		mapErrorReponse.put(OLD_PASSWORD_INCORRECT, "Old password is incorrect");
+		mapErrorReponse.put(USERNAME_INVALID, "Invalid username");
+		mapErrorReponse.put(PHONE_NUMBER_NOT_EMPTY, "Phone number is not empty");
+		mapErrorReponse.put(VERIFY_CODE_NOTFOUND, "verification code not found");
+		mapErrorReponse.put(VERIFY_CODE_FAIL, "verification code fail");
+		mapErrorReponse.put(AUTH_TIME_EXPIRED, "Authentication time has expired");
 	}
 	
 	public static ResponseEntity<ReponseMdl> responseErrorDefault(Exception e) {

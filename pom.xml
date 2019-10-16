@@ -65,7 +65,8 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- Gửi tin nhắn tự động -->
+		<!-- Gửi tin nhắn tự động Tài khoản đăng nhập https://www.twilio.com là: 
+			hoangkien0705@gmail.com/matkhaula@1234 -->
 		<dependency>
 			<groupId>com.twilio.sdk</groupId>
 			<artifactId>twilio</artifactId>
