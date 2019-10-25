@@ -59,7 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers(Constants.REGISTER_SOCIAL).permitAll()
 	        .antMatchers(HttpMethod.GET, Constants.CONFIRM_REGISTER).permitAll()
 	        .antMatchers(Constants.UPDATE_PASSWORD).permitAll()//xem lai
-	        .antMatchers(Constants.FORGET_PASSWORD).permitAll()
+	        .antMatchers(Constants.FORGOT_PASSWORD).permitAll()
+	        .antMatchers(Constants.FORGOT_PASSWORD_VERIFY_CODE).permitAll()
+	        .antMatchers(Constants.FORGOT_PASSWORD_MEMBER_UPDATE_PASS).permitAll()
 	        .antMatchers(Constants.NEW_PASSWORD).permitAll()
 	        .antMatchers(Constants.API_PUBLIC + "/**").permitAll()
 	        .antMatchers(Constants.API_REDIRECT + "/**").permitAll()

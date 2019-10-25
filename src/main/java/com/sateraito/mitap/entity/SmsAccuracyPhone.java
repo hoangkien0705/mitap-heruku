@@ -3,12 +3,15 @@ package com.sateraito.mitap.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sateraito.mitap.converter.TypeSMSAccuracyConvertor;
+import com.sateraito.mitap.utils.ESMSTypeAccuracyPhone;
 
 @Entity(name = "sms_accuracy_phone")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -31,6 +34,9 @@ public class SmsAccuracyPhone implements Serializable {
 	private long user_id;
 	private Date create_date;
 	private Date update_date;
+	
+	@Convert(converter = TypeSMSAccuracyConvertor.class)
+	private ESMSTypeAccuracyPhone type;
 
 	public long getId() {
 		return id;
@@ -127,6 +133,16 @@ public class SmsAccuracyPhone implements Serializable {
 	public void setTime_auth(Date time_auth) {
 		this.time_auth = time_auth;
 	}
+
+	public ESMSTypeAccuracyPhone getType() {
+		return type;
+	}
+
+	public void setType(ESMSTypeAccuracyPhone type) {
+		this.type = type;
+	}
+
+	
 	
 	
 	

@@ -69,6 +69,30 @@ public class UserController extends MitapController {
 	}
 	
 	/**
+	 * Forgot password
+	 */
+	@RequestMapping(value = Constants.FORGOT_PASSWORD, method = { RequestMethod.POST })
+	public ResponseEntity<ReponseMdl> forgotPassword(@RequestBody String phoneNumber) {
+		return userService.forgotPassword(phoneNumber);
+	}
+	
+	/**
+	 * Forgot password verifyCode
+	 */
+	@RequestMapping(value = Constants.FORGOT_PASSWORD_VERIFY_CODE, method = { RequestMethod.POST })
+	public ResponseEntity<ReponseMdl> forgotPasswordVerifyCode(@RequestBody UserAuthPhoneRequest userAuthPhone) {
+		return userService.forgotPasswordVerifyCode(userAuthPhone);
+	}
+	
+	/**
+	 * Forgot password verifyCode
+	 */
+	@RequestMapping(value = Constants.FORGOT_PASSWORD_MEMBER_UPDATE_PASS, method = { RequestMethod.POST })
+	public ResponseEntity<ReponseMdl> forgotPasswordMemberUpdatePass(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
+		return userService.forgotPasswordMemberUpdatePass(updatePasswordRequest);
+	}
+	
+	/**
 	 * Lấy các thông tin cơ bản của user thông qua token
 	 */
 	@RequestMapping(value = "/user_info", method = { RequestMethod.POST }) 

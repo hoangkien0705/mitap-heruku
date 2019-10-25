@@ -40,6 +40,7 @@ import com.sateraito.mitap.repo.SmsAccuracyPhoneRepo;
 import com.sateraito.mitap.repo.UserRepo;
 import com.sateraito.mitap.twilio.TwilioSms;
 import com.sateraito.mitap.utils.EMitapRole;
+import com.sateraito.mitap.utils.ESMSTypeAccuracyPhone;
 import com.sateraito.mitap.utils.ExistsUniqueId;
 import com.sateraito.mitap.utils.RandomString;
 import com.sateraito.mitap.utils.Utils;
@@ -191,6 +192,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
         smsAcc.setUser_id(user.getId());
         smsAcc.setCreate_date(new Date());
         smsAcc.setUpdate_date(new Date());
+        smsAcc.setType(ESMSTypeAccuracyPhone.REGISTER_VERIFY_PHONENUMBER);
         smsAccuracyPhoneRepo.save(smsAcc);
         //callback
 		ListenableFuture<ResourceSet<Message>> future = Message.reader().readAsync();
@@ -219,7 +221,10 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
         };
 		Futures.addCallback(future, callback, MoreExecutors.directExecutor());
 		
-		return responseSuccessDefault(new SmsAccuracyPhoneResponse(smsAcc));
+		SmsAccuracyPhoneResponse smsAccuracyPhoneResponse = new SmsAccuracyPhoneResponse(smsAcc);
+        smsAccuracyPhoneResponse.setBody_message("");
+        smsAccuracyPhoneResponse.setCode("");
+		return responseSuccessDefault(smsAccuracyPhoneResponse);
 	}
 	
 	public ResponseEntity<ReponseMdl> userAuthPhone(UserAuthPhoneRequest userAuthPhone) {
@@ -237,6 +242,92 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 		user.setAccuracy_phone_number(true);
 		user.setActive_flag(true);
 		userRepo.save(user);
+		
+		smsAccuracyPhone.setTime_auth(curentDate);
+		smsAccuracyPhone.setUpdate_date(curentDate);
+		smsAccuracyPhoneRepo.save(smsAccuracyPhone);
+		
+		return responseSuccessDefault(null);
+	}
+	
+	public ResponseEntity<ReponseMdl> forgotPassword(String phoneNumber) {
+		if(StringUtils.isEmpty(phoneNumber)) {
+			return responseError(PHONE_NUMBER_NOT_EMPTY);
+		}
+		if(phoneNumber.indexOf("=") == (phoneNumber.length() - 1)) {
+			phoneNumber = phoneNumber.substring(0, phoneNumber.length() - 1);
+		}
+		MitapUser user = userRepo.findByPhoneNumber(phoneNumber);
+		if(user == null) {
+			return responseError(USER_NOT_EXIST);
+		}
+		
+		Twilio.init(TwilioSms.ACCOUNT_SID, TwilioSms.AUTH_TOKEN);
+        PhoneNumber receivePhoneNumber = new PhoneNumber(phoneNumber); //+84969951417
+        RandomString tickets = new RandomString(6, new SecureRandom(), RandomString.digits);
+		String code = tickets.nextString();
+		String bodyMess = String.format(Constants.SYNTAX_SMS_VERIFY_CODE, code);
+        Message.creator(receivePhoneNumber, new PhoneNumber(TwilioSms.TWILIO_NUMBER), bodyMess).create();
+		
+		String uniqueId = createUniqueIdSmsAccuracy(smsAccuracyPhoneRepo);
+        SmsAccuracyPhone smsAcc = new SmsAccuracyPhone();
+        smsAcc.setUnique_id(uniqueId);
+        smsAcc.setStatus("");
+        smsAcc.setError("");
+        smsAcc.setBody_message(bodyMess);
+        smsAcc.setCode(String.format(Constants.CODE_VERIFY, code));
+        smsAcc.setPrice("");
+        smsAcc.setTime_auth(null);
+        smsAcc.setPrice_unit("");
+        smsAcc.setUser_id(user.getId());
+        smsAcc.setCreate_date(new Date());
+        smsAcc.setUpdate_date(new Date());
+        smsAcc.setType(ESMSTypeAccuracyPhone.FORGOT_PASSWORD);
+        smsAccuracyPhoneRepo.save(smsAcc);
+        
+        //callback
+		ListenableFuture<ResourceSet<Message>> future = Message.reader().readAsync();
+		FutureCallback<ResourceSet<Message>> callback = new FutureCallback<ResourceSet<Message>>() {
+			public void onSuccess(ResourceSet<Message> messages) {
+				for (Message message : messages) {
+	                  System.out.println(message.getSid() + " : " + message.getStatus());
+	                  SmsAccuracyPhone updateSmsAcc = smsAccuracyPhoneRepo.findOneByUniqueId(uniqueId);
+	                  if(updateSmsAcc == null) return;
+	                  updateSmsAcc.setStatus(message.getStatus().name());
+	                  updateSmsAcc.setPrice(message.getPrice());
+	                  updateSmsAcc.setPrice_unit(message.getPriceUnit().getCurrencyCode());
+	                  updateSmsAcc.setUpdate_date(new Date());
+	                  smsAccuracyPhoneRepo.save(updateSmsAcc);
+	              }
+	        }
+	
+	        public void onFailure(Throwable t) {
+	        	System.out.println("Failed to get message status: " + t.getMessage());
+	        	SmsAccuracyPhone updateSmsAcc = smsAccuracyPhoneRepo.findOneByUniqueId(uniqueId);
+	            if(updateSmsAcc == null) return;
+	            updateSmsAcc.setError(t.getMessage());
+	            updateSmsAcc.setUpdate_date(new Date());
+	            smsAccuracyPhoneRepo.save(updateSmsAcc);
+	        }
+	    };
+		Futures.addCallback(future, callback, MoreExecutors.directExecutor());
+        SmsAccuracyPhoneResponse smsAccuracyPhoneResponse = new SmsAccuracyPhoneResponse(smsAcc);
+        smsAccuracyPhoneResponse.setBody_message("");
+        smsAccuracyPhoneResponse.setCode("");
+		return responseSuccessDefault(smsAccuracyPhoneResponse);
+	}
+	
+	public ResponseEntity<ReponseMdl> forgotPasswordVerifyCode(UserAuthPhoneRequest userAuthPhone) {
+		SmsAccuracyPhone smsAccuracyPhone = smsAccuracyPhoneRepo.findOneByPhoneAndType(ESMSTypeAccuracyPhone.FORGOT_PASSWORD.getType(), userAuthPhone.getPhone());
+		if(smsAccuracyPhone == null) {
+			return responseError(VERIFY_CODE_NOTFOUND);
+		}
+		if(!smsAccuracyPhone.getCode().equals(userAuthPhone.getCode())) return responseError(VERIFY_CODE_FAIL);
+		//check time
+		Date curentDate = new Date();
+		long diff = curentDate.getTime() - smsAccuracyPhone.getCreate_date().getTime();
+		long minute = diff / (60 * 1000);
+		if(minute > Constants.TIME_EXPIRED_VERIFY_CODE) return responseError(AUTH_TIME_EXPIRED);
 		
 		smsAccuracyPhone.setTime_auth(curentDate);
 		smsAccuracyPhone.setUpdate_date(curentDate);
@@ -351,7 +442,26 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
     	return responseSuccessDefault(null);
 	}
 
-	
+	/**
+	 * @param updatePasswordRequest : phoneNumber, newPassword
+	 * @return
+	 */
+	public ResponseEntity<ReponseMdl> forgotPasswordMemberUpdatePass(UpdatePasswordRequest updatePasswordRequest) {
+		MitapUser user = userRepo.findByPhoneNumber(updatePasswordRequest.getPhoneNumber());
+		if(user == null) {
+			return responseError(USER_NOT_EXIST);
+		}
+		if(updatePasswordRequest.getNewPassword() == null  || !passwordValidator.validatePassword(updatePasswordRequest.getNewPassword())) { 
+			return responseError(PASSWORD_INVALID);
+		}
+		
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String passwordDB = bCryptPasswordEncoder.encode(updatePasswordRequest.getNewPassword());
+    	user.setPassword(passwordDB);
+    	userRepo.save(user);
+    	
+    	return responseSuccessDefault(null);
+	}
 
 }
 

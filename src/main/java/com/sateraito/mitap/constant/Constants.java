@@ -13,7 +13,6 @@ public class Constants {
 	public static final String API_REDIRECT = "/api/redirect";
 	public static final String CONFIRM_REGISTER = "/confirm_register";
 	public static final String UPDATE_PASSWORD = "/update_password";
-	public static final String FORGET_PASSWORD = "/forget_password";
 	public static final String REGISTER_COMPACT = "/register_compact";
 	public static final String REGISTER_SOCIAL = "/register_social";
 	public static final String LOGIN = "/login";
@@ -22,6 +21,9 @@ public class Constants {
 	public static final String USER_AUTH_PHONE = "/user_register_auth_phone";
 	public static final String REGISTER_ACCURACY_EMAIL = "/register_accuracy_email";
 	public static final String NEW_PASSWORD = "/new_password";
+	public static final String FORGOT_PASSWORD = "/forgot_password";
+	public static final String FORGOT_PASSWORD_VERIFY_CODE = "/forgot_password_verify_code";
+	public static final String FORGOT_PASSWORD_MEMBER_UPDATE_PASS = "/forgot_password_member_update_pass";
 	public static final String LIMIT = "limit";
 	
 	public static final String CODE_VERIFY = "M-%s";

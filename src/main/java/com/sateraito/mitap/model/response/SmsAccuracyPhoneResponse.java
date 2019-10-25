@@ -2,6 +2,7 @@ package com.sateraito.mitap.model.response;
 
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.entity.SmsAccuracyPhone;
+import com.sateraito.mitap.utils.ESMSTypeAccuracyPhone;
 
 public class SmsAccuracyPhoneResponse {
 	private long id;
@@ -16,6 +17,7 @@ public class SmsAccuracyPhoneResponse {
 	private long user_id;
 	private String create_date;
 	private String update_date;
+	private ESMSTypeAccuracyPhone type;
 	
 	public SmsAccuracyPhoneResponse(){
 		super();
@@ -34,6 +36,7 @@ public class SmsAccuracyPhoneResponse {
 		setUser_id(smsAccuracy.getUser_id());
 		setCreate_date(Constants.fomat_1.format(smsAccuracy.getCreate_date()));
 		setUpdate_date(Constants.fomat_1.format(smsAccuracy.getUpdate_date()));
+		setType(smsAccuracy.getType());
 	}
 
 	public long getId() {
@@ -122,6 +125,14 @@ public class SmsAccuracyPhoneResponse {
 
 	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
+	}
+
+	public ESMSTypeAccuracyPhone getType() {
+		return type;
+	}
+
+	public void setType(ESMSTypeAccuracyPhone type) {
+		this.type = type;
 	}
 
 	

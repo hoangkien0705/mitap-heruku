@@ -10,11 +10,12 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
 public class TwilioSms {
-	public static final String ACCOUNT_SID = "ACcd5916cee76091e23e140d70239b98e6";
-    public static final String AUTH_TOKEN  = "458b0b8d90246977795bf621c508e630";
+	//account register: hoangkien07051@gmail.com
+	public static final String ACCOUNT_SID = "AC758dd71e80be9884992ce0600a78b909";
+    public static final String AUTH_TOKEN  = "1d456166c7bf80d7565fb8c48d5aaee0";
     
     //Số điện thoại mà twilio tự động cấu hình đóng vai trò là số điện thoại gửi
-    public static final String TWILIO_NUMBER = "+12052730484";
+    public static final String TWILIO_NUMBER = "+12156470696";
     
     public static void main(String[] args) { 
     	Twilio.init(TwilioSms.ACCOUNT_SID, TwilioSms.AUTH_TOKEN);

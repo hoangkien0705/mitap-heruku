@@ -18,4 +18,8 @@ public interface SmsAccuracyPhoneRepo extends JpaRepository<SmsAccuracyPhone, Lo
 	
 	@Query(value = "SELECT * FROM sms_accuracy_phone WHERE user_id = ?1 LIMIT 1", nativeQuery = true)
 	SmsAccuracyPhone findOneByUser(long userId);
+	
+	@Query(value = "SELECT * FROM sms_accuracy_phone WHERE TYPE = ?1 and sms_accuracy_phone.user_id = "
+			+ "(SELECT id FROM user WHERE user.phone_number = ?2) ORDER BY create_date DESC limit 1", nativeQuery = true)
+	SmsAccuracyPhone findOneByPhoneAndType(int type, String phoneNumber);
 }
