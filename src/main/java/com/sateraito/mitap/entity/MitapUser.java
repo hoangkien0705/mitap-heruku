@@ -11,6 +11,8 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sateraito.mitap.converter.BooleanConvertor;
+import com.sateraito.mitap.converter.SexConvertor;
+import com.sateraito.mitap.utils.ESex;
 
 @Entity(name = "user")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -28,7 +30,6 @@ public class MitapUser implements Serializable {
 	private String username;
 	private String email;
 	private int age;
-	private int sex;
 	private String phone_number;
 	private String address;
 	private String avata;
@@ -45,6 +46,8 @@ public class MitapUser implements Serializable {
 	private String passport_code;
 	private String id_card;
 	
+	@Convert(converter = SexConvertor.class)
+	private ESex sex;
 	@Convert(converter = BooleanConvertor.class)
 	private boolean wallet_flag;
 	@Convert(converter = BooleanConvertor.class)
@@ -116,11 +119,11 @@ public class MitapUser implements Serializable {
 		this.age = age;
 	}
 
-	public int getSex() {
+	public ESex getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(ESex sex) {
 		this.sex = sex;
 	}
 

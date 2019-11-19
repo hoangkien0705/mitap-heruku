@@ -10,7 +10,7 @@ public class UserResponse {
 	private String username;
 	private String email;
 	private int age;
-	private int sex;
+	private String sex;
 	private String phone_number;
 	private String address;
 	private String avata;
@@ -41,7 +41,7 @@ public class UserResponse {
 		setUsername(user.getUsername());
 		setEmail(user.getEmail());
 		setAge(user.getAge());
-		setSex(user.getSex());
+		setSex(user.getSex().getValue());
 		setPhone_number(user.getPhone_number());
 		setAddress(user.getAddress());
 		setAvata(user.getAvata());
@@ -114,11 +114,11 @@ public class UserResponse {
 		this.age = age;
 	}
 
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
