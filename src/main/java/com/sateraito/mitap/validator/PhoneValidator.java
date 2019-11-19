@@ -28,3 +28,5 @@ public class PhoneValidator {
 		Log.d(validator.validatePhone("+84969951417") + "");
 	}
 }
+
+

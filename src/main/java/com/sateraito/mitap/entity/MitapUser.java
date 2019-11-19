@@ -44,6 +44,7 @@ public class MitapUser implements Serializable {
 	private Date visa_expired;
 	private String passport_code;
 	private String id_card;
+	private Date birday;
 	
 	@Convert(converter = BooleanConvertor.class)
 	private boolean wallet_flag;
@@ -299,5 +300,15 @@ public class MitapUser implements Serializable {
 	public void setAccuracy_phone_number(boolean accuracy_phone_number) {
 		this.accuracy_phone_number = accuracy_phone_number;
 	}
+
+	public Date getBirday() {
+		return birday;
+	}
+
+	public void setBirday(Date birday) {
+		this.birday = birday;
+	}
+	
+	
 
 }

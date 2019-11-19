@@ -61,7 +61,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 	private PhoneValidator phoneValidator = new PhoneValidator();
 	
 	public ResponseEntity<ReponseMdl> index(String uri) {
-		return responseSuccessDefault(uri + "");
+		return responseSuccessDefault(uri + " Hoàng Kiên");
 	}
 
 	@Override
@@ -70,7 +70,8 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 		if(emailValidator.validateEmail(username)) {//email
 			appUser = userRepo.findByEmail(username);
 		} else if(phoneValidator.validatePhone(username)) {//phone
-			appUser = userRepo.findByPhoneNumber(username);
+			String phone = username;
+			appUser = userRepo.findByPhoneNumber(phone);
 		} else { //username
 			appUser = userRepo.findByUsername(username);
 		}

@@ -72,6 +72,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
  
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");  
         String JWT = Jwts.builder().setSubject(authResult.getName())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET).compact();
@@ -99,5 +101,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     	reponseMdl.setData("");
         response.getWriter().write(Constants.GSON.toJson(reponseMdl));
     }
+    
+   
     
 }

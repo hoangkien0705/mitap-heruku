@@ -33,6 +33,7 @@ public class UserResponse {
 	private boolean public_flag;
 	private boolean accuracy_email;
 	private boolean accuracy_phone_number;
+	private String birday;
 	
 	public UserResponse(MitapUser user) {
 		setId(user.getId());
@@ -64,6 +65,7 @@ public class UserResponse {
 		setPublic_flag(user.isPublic_flag());
 		setAccuracy_email(user.isAccuracy_email());
 		setAccuracy_phone_number(user.isAccuracy_phone_number());
+		setBirday(Utils.fomatDateToString(user.getBirday()));
 	}
 	
 	public long getId() {
@@ -296,6 +298,14 @@ public class UserResponse {
 
 	public void setAccuracy_phone_number(boolean accuracy_phone_number) {
 		this.accuracy_phone_number = accuracy_phone_number;
+	}
+
+	public String getBirday() {
+		return birday;
+	}
+
+	public void setBirday(String birday) {
+		this.birday = birday;
 	}
 
 	
