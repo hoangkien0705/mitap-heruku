@@ -471,7 +471,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 		if(user == null) {
 			return responseError(USER_NOT_EXIST);
 		}
-		if(!StringUtils.isEmpty(updateUserInfoRequest.getEmail()) && userRepo.findByEmail(updateUserInfoRequest.getEmail()) != null) {
+		if(!updateUserInfoRequest.getEmail().equals(user.getEmail()) && !StringUtils.isEmpty(updateUserInfoRequest.getEmail()) && userRepo.findByEmail(updateUserInfoRequest.getEmail()) != null) {
 			return responseError(EMAIL_ALREADY_EXIST);
 		}
 		if(!emailValidator.validateEmail(updateUserInfoRequest.getEmail())) {
