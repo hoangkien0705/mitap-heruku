@@ -63,6 +63,8 @@ public class MitapService {
 	public static final int VERIFY_CODE_NOTFOUND = 14;
 	public static final int VERIFY_CODE_FAIL = 15;
 	public static final int AUTH_TIME_EXPIRED = 16;
+	public static final int BIRDAY_INCORRECT = 17;
+	public static final int EMAIL_INVALIDATE = 18;
 	
 	public static Map<Integer, String> mapErrorReponse = new HashMap<>();
 	
@@ -82,6 +84,8 @@ public class MitapService {
 		mapErrorReponse.put(VERIFY_CODE_NOTFOUND, "verification code not found");
 		mapErrorReponse.put(VERIFY_CODE_FAIL, "verification code fail");
 		mapErrorReponse.put(AUTH_TIME_EXPIRED, "Authentication time has expired");
+		mapErrorReponse.put(BIRDAY_INCORRECT, "User birday incorrect");
+		mapErrorReponse.put(EMAIL_INVALIDATE, "Email invalidate");
 	}
 	
 	public static ResponseEntity<ReponseMdl> responseErrorDefault(Exception e) {

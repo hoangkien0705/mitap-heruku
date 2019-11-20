@@ -14,6 +14,10 @@ public class EmailValidator {
 		pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
 	}
 
+	/**
+	 * true: đây là email <br/>             
+	 * false: đây không là email
+	 */
 	public boolean validateEmail(String email) {
 		matcher = pattern.matcher(email);
 		return matcher.matches();

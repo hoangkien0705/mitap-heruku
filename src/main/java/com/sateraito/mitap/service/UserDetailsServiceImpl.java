@@ -1,6 +1,7 @@
 package com.sateraito.mitap.service;
 
 import java.security.SecureRandom;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,7 @@ import com.sateraito.mitap.entity.UserDirection;
 import com.sateraito.mitap.entity.UserRole;
 import com.sateraito.mitap.model.request.UpdatePasswordByTokenRequest;
 import com.sateraito.mitap.model.request.UpdatePasswordRequest;
+import com.sateraito.mitap.model.request.UpdateUserInfoRequest;
 import com.sateraito.mitap.model.request.UserAuthPhoneRequest;
 import com.sateraito.mitap.model.request.UserRegisterRequest;
 import com.sateraito.mitap.model.response.ReponseMdl;
@@ -462,6 +464,32 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
     	userRepo.save(user);
     	
     	return responseSuccessDefault(null);
+	}
+
+	public ResponseEntity<ReponseMdl> updateUserInfo(UpdateUserInfoRequest updateUserInfoRequest, String usernameAuthen) {
+		MitapUser user = userRepo.findByUsername(usernameAuthen);
+		if(user == null) {
+			return responseError(USER_NOT_EXIST);
+		}
+		if(!StringUtils.isEmpty(updateUserInfoRequest.getEmail()) && userRepo.findByEmail(updateUserInfoRequest.getEmail()) != null) {
+			return responseError(EMAIL_ALREADY_EXIST);
+		}
+		if(!emailValidator.validateEmail(updateUserInfoRequest.getEmail())) {
+			return responseError(EMAIL_INVALIDATE);
+		}
+		user.setFirst_name(updateUserInfoRequest.getFirst_name());
+		user.setLast_name(updateUserInfoRequest.getLast_name());
+		user.setEmail(updateUserInfoRequest.getEmail());
+		user.setAddress(updateUserInfoRequest.getAddress());
+		user.setNational(updateUserInfoRequest.getNational());
+		try {
+			Date birday = Constants.fomat_2.parse(updateUserInfoRequest.getBirday());
+			user.setBirday(birday);
+			userRepo.save(user);
+			return responseSuccessDefault(null);
+		} catch (ParseException e) {
+			return responseError(BIRDAY_INCORRECT);
+		}
 	}
 
 }

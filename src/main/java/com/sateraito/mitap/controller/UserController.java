@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.model.request.UpdatePasswordByTokenRequest;
 import com.sateraito.mitap.model.request.UpdatePasswordRequest;
+import com.sateraito.mitap.model.request.UpdateUserInfoRequest;
 import com.sateraito.mitap.model.request.UserAuthPhoneRequest;
 import com.sateraito.mitap.model.request.UserRegisterRequest;
 import com.sateraito.mitap.model.response.ReponseMdl;
@@ -118,5 +119,12 @@ public class UserController extends MitapController {
 		return userService.updatePasswordByToken(updatePasswordByTokenRequest, usernameAuthen);
 	}
 	
-	
+	/* 
+	 * Update user info
+	 */
+	@RequestMapping(value = "/update_user_info", method = { RequestMethod.POST }) 
+	public ResponseEntity<ReponseMdl> updatePasswordByToken(@RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
+		String usernameAuthen = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userService.updateUserInfo(updateUserInfoRequest, usernameAuthen);
+	}
 }
