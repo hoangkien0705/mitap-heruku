@@ -38,7 +38,6 @@ public class UserResponse {
 	public UserResponse(MitapUser user) {
 		setId(user.getId());
 		setUnique_id(user.getUnique_id());
-		setFull_name(user.getFull_name());
 		setUsername(user.getUsername());
 		setEmail(user.getEmail());
 		setAge(user.getAge());

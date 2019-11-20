@@ -26,7 +26,6 @@ public class MitapUser implements Serializable {
 
 	private String unique_id;
 	private String password;
-	private String full_name;
 	private String username;
 	private String email;
 	private int age;
@@ -86,14 +85,6 @@ public class MitapUser implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getFull_name() {
-		return full_name;
-	}
-
-	public void setFull_name(String full_name) {
-		this.full_name = full_name;
 	}
 
 	public String getUsername() {
