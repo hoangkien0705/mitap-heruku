@@ -8,7 +8,6 @@ public class Constants {
 	public static final Gson GSON = new Gson();
 	public static final SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd");
 	public static final SimpleDateFormat fomat_1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	public static final SimpleDateFormat fomat_2 = new SimpleDateFormat("dd/MM/yyyy");
 	public static final String API_PUBLIC = "/api/public";
 	public static final String API_PRIVATE = "/api/private";
 	public static final String API_REDIRECT = "/api/redirect";

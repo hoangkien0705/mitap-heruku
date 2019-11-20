@@ -483,7 +483,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 		user.setAddress(updateUserInfoRequest.getAddress());
 		user.setNational(updateUserInfoRequest.getNational());
 		try {
-			Date birday = Constants.fomat_2.parse(updateUserInfoRequest.getBirday());
+			Date birday = Constants.fomat_1.parse(updateUserInfoRequest.getBirday());
 			user.setBirday(birday);
 			userRepo.save(user);
 			return responseSuccessDefault(null);
