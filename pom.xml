@@ -7,7 +7,7 @@
 	<groupId>com.sateraito.mitap</groupId>
 	<artifactId>mitap_springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	 <packaging>war</packaging>
+	<!-- <packaging>war</packaging> --> 
 	
 	<name>mitap_springboot</name>
 	<description>Mitap project for Spring Boot</description>
