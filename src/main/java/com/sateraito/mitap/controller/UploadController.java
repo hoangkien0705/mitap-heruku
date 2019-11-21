@@ -45,7 +45,7 @@ public class UploadController {
 			return new ResponseEntity<>(reponseSuccess, HttpStatus.OK);
 		} catch (Exception e) {
 			ReponseMdl reponseError = ReponseMdl.getInsErrorDefault();
-			reponseError.setMessage(e == null ? "" : e.toString());
+			reponseError.setMessage(e == null ? "" : e.toString() + " : " + WORKSPACE);
 			return new ResponseEntity<>(reponseError, HttpStatus.OK);
 		}
 	}
