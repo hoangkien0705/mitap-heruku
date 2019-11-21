@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers(Constants.NEW_PASSWORD).permitAll()
 	        .antMatchers(Constants.API_PUBLIC + "/**").permitAll()
 	        .antMatchers(Constants.API_REDIRECT + "/**").permitAll()
-	        .antMatchers("/css/**", "/fonts/**", "/image/**", "/js/**").permitAll()
+	        .antMatchers("/css/**", "/fonts/**", "/image/**", "/js/**", "/upload/**").permitAll()
 	        // tất cả những trang web còn lại Need authentication.
 	        .anyRequest().authenticated().and()
 	        .addFilterBefore(new JWTLoginFilter(Constants.LOGIN, authenticationManager(), userDetailsService), UsernamePasswordAuthenticationFilter.class)

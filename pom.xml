@@ -64,7 +64,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<!-- Gửi tin nhắn tự động Tài khoản đăng nhập https://www.twilio.com là: 
 			hoangkien0705@gmail.com/matkhaula@1234 -->
 		<dependency>
@@ -72,7 +72,7 @@
 			<artifactId>twilio</artifactId>
 			<version>7.41.2</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -80,7 +80,14 @@
 			<version>1.18.4</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -89,14 +96,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+
 			<!-- plugin for heruku maven -->
 			<plugin>
-		        <groupId>com.heroku.sdk</groupId>
-		        <artifactId>heroku-maven-plugin</artifactId>
-		        <version>2.0.11</version>
-		    </plugin>
-      
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.11</version>
+			</plugin>
+
 		</plugins>
 	</build>
 

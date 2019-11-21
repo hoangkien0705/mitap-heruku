@@ -25,6 +25,7 @@ public class Constants {
 	public static final String FORGOT_PASSWORD_VERIFY_CODE = "/forgot_password_verify_code";
 	public static final String FORGOT_PASSWORD_MEMBER_UPDATE_PASS = "/forgot_password_member_update_pass";
 	public static final String LIMIT = "limit";
+	public static final String PATH_UPLOAD = "\\viettravel_springboot\\image\\upload";
 	
 	public static final String CODE_VERIFY = "M-%s";
 	public static final String SYNTAX_SMS_VERIFY_CODE = CODE_VERIFY + " is your Mitap verification code";
