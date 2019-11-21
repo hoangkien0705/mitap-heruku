@@ -23,6 +23,13 @@ import com.sateraito.mitap.model.response.ReponseMdl;
 @Controller
 @RequestMapping(value = "/upload")
 public class UploadController {
+	
+	@RequestMapping(value = "/test", method = { RequestMethod.POST}) 
+	public ResponseEntity<ReponseMdl> test(Model model, HttpServletRequest request) {
+		String path = UploadController.class.getResource("").getPath();
+		ReponseMdl reponseMdl = new ReponseMdl(0,  path);
+		return new ResponseEntity<>(reponseMdl, HttpStatus.OK);
+	}
 
 
 	/**
