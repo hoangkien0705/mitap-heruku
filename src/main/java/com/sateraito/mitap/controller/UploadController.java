@@ -2,6 +2,9 @@ package com.sateraito.mitap.controller;
 
 import java.io.File;
 import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,8 +29,13 @@ public class UploadController {
 	
 	@RequestMapping(value = "/test", method = { RequestMethod.POST}) 
 	public ResponseEntity<ReponseMdl> test(Model model, HttpServletRequest request) {
-		String path = UploadController.class.getResource("").getPath();
-		ReponseMdl reponseMdl = new ReponseMdl(0,  path);
+		Path fileStorageLocation = Paths.get("upload" + "").toAbsolutePath().normalize();
+		try {
+            Files.createDirectories(fileStorageLocation);
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+        }
+		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString());
 		return new ResponseEntity<>(reponseMdl, HttpStatus.OK);
 	}
 
