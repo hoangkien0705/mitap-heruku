@@ -3,6 +3,7 @@ package com.sateraito.mitap.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sateraito.mitap.service.TravelService;
+import com.sateraito.mitap.service.UploadImageService;
 import com.sateraito.mitap.service.UserDetailsServiceImpl;
 
 public class MitapController {
@@ -10,5 +11,7 @@ public class MitapController {
 	protected UserDetailsServiceImpl userService;
 	@Autowired
 	protected TravelService travelService;
+	@Autowired
+	protected UploadImageService uploadImageService;
 
 }

@@ -65,6 +65,7 @@ public class MitapService {
 	public static final int AUTH_TIME_EXPIRED = 16;
 	public static final int BIRDAY_INCORRECT = 17;
 	public static final int EMAIL_INVALIDATE = 18;
+	public static final int UPLOAD_IMAGE_FAIL = 19;
 	
 	public static Map<Integer, String> mapErrorReponse = new HashMap<>();
 	
@@ -86,6 +87,7 @@ public class MitapService {
 		mapErrorReponse.put(AUTH_TIME_EXPIRED, "Authentication time has expired");
 		mapErrorReponse.put(BIRDAY_INCORRECT, "User birday incorrect");
 		mapErrorReponse.put(EMAIL_INVALIDATE, "Email invalidate");
+		mapErrorReponse.put(UPLOAD_IMAGE_FAIL, "Upload image fail");
 	}
 	
 	public static ResponseEntity<ReponseMdl> responseErrorDefault(Exception e) {
