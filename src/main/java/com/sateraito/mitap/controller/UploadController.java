@@ -39,8 +39,6 @@ public class UploadController {
             throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
         }
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-        
         Path targetLocation = fileStorageLocation.resolve(fileName);
         try {
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -48,7 +46,7 @@ public class UploadController {
 			throw new RuntimeException("Could not store file " + fileName + ". Please try again!", e);
 		}
         
-		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString() + " : " + targetLocation);
+		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString() + " : " + targetLocation + " : fileName: " + fileName);
 		return new ResponseEntity<>(reponseMdl, HttpStatus.OK);
 	}
 
