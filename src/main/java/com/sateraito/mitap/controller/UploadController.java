@@ -1,10 +1,12 @@
 package com.sateraito.mitap.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,14 +31,24 @@ import com.sateraito.mitap.model.response.ReponseMdl;
 public class UploadController {
 	
 	@RequestMapping(value = "/test", method = { RequestMethod.POST}) 
-	public ResponseEntity<ReponseMdl> test(Model model, HttpServletRequest request) {
+	public ResponseEntity<ReponseMdl> test(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
 		Path fileStorageLocation = Paths.get("upload" + "").toAbsolutePath().normalize();
 		try {
             Files.createDirectories(fileStorageLocation);
         } catch (Exception ex) {
             throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
         }
-		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString());
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
+        
+        Path targetLocation = fileStorageLocation.resolve(fileName);
+        try {
+			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			throw new RuntimeException("Could not store file " + fileName + ". Please try again!", e);
+		}
+        
+		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString() + " : " + targetLocation);
 		return new ResponseEntity<>(reponseMdl, HttpStatus.OK);
 	}
 
