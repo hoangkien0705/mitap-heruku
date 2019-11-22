@@ -2,6 +2,7 @@ package com.sateraito.mitap.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,17 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sateraito.mitap.model.response.ReponseMdl;
+import com.sateraito.mitap.utils.Log;
 
 
 
@@ -31,7 +37,7 @@ import com.sateraito.mitap.model.response.ReponseMdl;
 public class UploadController {
 	
 	@RequestMapping(value = "/test", method = { RequestMethod.POST}) 
-	public ResponseEntity<ReponseMdl> test(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
+	public ResponseEntity<Resource> test(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
 		Path fileStorageLocation = Paths.get("upload" + "").toAbsolutePath().normalize();
 		try {
             Files.createDirectories(fileStorageLocation);
@@ -46,9 +52,24 @@ public class UploadController {
 			throw new RuntimeException("Could not store file " + fileName + ". Please try again!", e);
 		}
         
-		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString() + " : " + targetLocation + " : fileName: " + fileName);
-		return new ResponseEntity<>(reponseMdl, HttpStatus.OK);
+//		ReponseMdl reponseMdl = new ReponseMdl(0,  fileStorageLocation.toString() + " : " + targetLocation + " : fileName: " + fileName);
+        Path filePath = fileStorageLocation.resolve(fileName).normalize();
+        try {
+			Resource resource = new UrlResource(filePath.toUri());
+			if (resource.exists()) {
+				String contentType = getContentTypeFile(resource, request);
+				return ResponseEntity.ok()
+		                .contentType(MediaType.parseMediaType(contentType))
+		                .body(resource);
+            } else {
+                throw new RuntimeException("File not found " + fileName);
+            }
+		} catch (MalformedURLException e) {
+		}
+        return null;
 	}
+	
+	
 
 
 	/**
@@ -90,4 +111,13 @@ public class UploadController {
 		}
 	}
 	
+	private String getContentTypeFile(Resource resource, HttpServletRequest request) {
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            Log.d("Could not determine file type.");
+        }
+        return contentType;
+    }
 }
