@@ -59,14 +59,14 @@ public class TravelService extends MitapService {
 			travel.setList_place(registerTravelRequest.getPlaceToVisit());
 			Date timeStart;
 			try {
-				timeStart = Constants.fomat.parse(registerTravelRequest.getTime_start());
+				timeStart = Constants.fomat_2.parse(registerTravelRequest.getTime_start());
 				travel.setTime_start(timeStart);
 			} catch (ParseException e) {
 				travel.setTime_start(null);
 			}
 			Date timeFinish;
 			try {
-				timeFinish = Constants.fomat.parse(registerTravelRequest.getTime_finish());
+				timeFinish = Constants.fomat_2.parse(registerTravelRequest.getTime_finish());
 				travel.setTime_finish(timeFinish);
 			} catch (ParseException e) {
 				travel.setTime_finish(null);
@@ -75,6 +75,8 @@ public class TravelService extends MitapService {
 			travel.setLocation(registerTravelRequest.getDestination());
 			travel.setNote(registerTravelRequest.getNote());
 			travel.setSchedule(registerTravelRequest.getSchedule());
+			travel.setCreate_date(new Date());
+			travel.setUpdate_date(new Date());
 			travelRepo.save(travel);
 			return responseSuccessDefault(null);
 		} catch (Exception e) {
