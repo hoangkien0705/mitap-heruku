@@ -7,7 +7,9 @@
 	<groupId>com.sateraito.mitap</groupId>
 	<artifactId>mitap_springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- <packaging>war</packaging> --> 
+	
+	<!-- deploy server sevenstar. Neu deploy len heruku thi bo dong nay-->
+	<!--  <packaging>war</packaging>  -->
 	
 	<name>mitap_springboot</name>
 	<description>Mitap project for Spring Boot</description>
