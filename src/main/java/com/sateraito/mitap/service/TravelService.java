@@ -49,7 +49,7 @@ public class TravelService extends MitapService {
 			travel.setUnique_id(createUniqueIdTravel(travelRepo));
 			
 			travel.setJapanese_profile_required(registerTravelRequest.getJapanese_profile_required());
-			travel.setList_place(registerTravelRequest.getList_place());
+			travel.setList_place(registerTravelRequest.getPlaceToVisit());
 			Date timeStart;
 			try {
 				timeStart = Constants.fomat.parse(registerTravelRequest.getTime_start());
@@ -65,7 +65,7 @@ public class TravelService extends MitapService {
 				travel.setTime_finish(null);
 			}
 			travel.setTransport(registerTravelRequest.getTransport());
-			travel.setLocation(registerTravelRequest.getLocation());
+			travel.setLocation(registerTravelRequest.getDestination());
 			travel.setNote(registerTravelRequest.getNote());
 			travel.setSchedule(registerTravelRequest.getSchedule());
 			travelRepo.save(travel);

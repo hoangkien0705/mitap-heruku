@@ -25,7 +25,7 @@ public class Travel implements Serializable {
 	private long id;
 
 	private String unique_id;
-	private String japanese_profile_required;
+	private int japanese_profile_required;
 	private String list_place;
 	private Date time_start;
 	private Date time_finish;
@@ -60,11 +60,11 @@ public class Travel implements Serializable {
 		this.unique_id = unique_id;
 	}
 
-	public String getJapanese_profile_required() {
+	public int getJapanese_profile_required() {
 		return japanese_profile_required;
 	}
 
-	public void setJapanese_profile_required(String japanese_profile_required) {
+	public void setJapanese_profile_required(int japanese_profile_required) {
 		this.japanese_profile_required = japanese_profile_required;
 	}
 
