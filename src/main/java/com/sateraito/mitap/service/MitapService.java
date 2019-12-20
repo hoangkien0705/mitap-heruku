@@ -66,6 +66,7 @@ public class MitapService {
 	public static final int BIRDAY_INCORRECT = 17;
 	public static final int EMAIL_INVALIDATE = 18;
 	public static final int UPLOAD_IMAGE_FAIL = 19;
+	public static final int USER_DIRECTION_NOT_CREATE_TOUR = 20;
 	
 	public static Map<Integer, String> mapErrorReponse = new HashMap<>();
 	
@@ -82,12 +83,13 @@ public class MitapService {
 		mapErrorReponse.put(OLD_PASSWORD_INCORRECT, "Old password is incorrect");
 		mapErrorReponse.put(USERNAME_INVALID, "Invalid username");
 		mapErrorReponse.put(PHONE_NUMBER_NOT_EMPTY, "Phone number is not empty");
-		mapErrorReponse.put(VERIFY_CODE_NOTFOUND, "verification code not found");
-		mapErrorReponse.put(VERIFY_CODE_FAIL, "verification code fail");
+		mapErrorReponse.put(VERIFY_CODE_NOTFOUND, "Verification code not found");
+		mapErrorReponse.put(VERIFY_CODE_FAIL, "Verification code fail");
 		mapErrorReponse.put(AUTH_TIME_EXPIRED, "Authentication time has expired");
 		mapErrorReponse.put(BIRDAY_INCORRECT, "User birday incorrect");
 		mapErrorReponse.put(EMAIL_INVALIDATE, "Email invalidate");
 		mapErrorReponse.put(UPLOAD_IMAGE_FAIL, "Upload image fail");
+		mapErrorReponse.put(USER_DIRECTION_NOT_CREATE_TOUR, "The directions are not authorized to create tours");
 	}
 	
 	public static ResponseEntity<ReponseMdl> responseErrorDefault(Exception e) {

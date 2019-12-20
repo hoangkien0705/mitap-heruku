@@ -13,6 +13,7 @@ import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.converter.StateTravelConvertor;
 import com.sateraito.mitap.entity.MitapUser;
 import com.sateraito.mitap.entity.Travel;
+import com.sateraito.mitap.entity.UserDirection;
 import com.sateraito.mitap.model.request.DirectorTravelRequest;
 import com.sateraito.mitap.model.request.RegisterTravelRequest;
 import com.sateraito.mitap.model.response.ReponseMdl;
@@ -45,6 +46,12 @@ public class TravelService extends MitapService {
 			travel.setDel_flag(false);
 			
 			MitapUser u = userRepo.findByUsername(username);
+			// TODO kiểm tra xem user này có quyền tạo tour du lịch hay không (chỉ có người đi du lịch mới được tạo, người chỉ đường thì không được tạo)
+			UserDirection userDirection = userDirectionRepo.findOneByUserId(u.getId());
+			if(userDirection != null) {
+				return responseError(USER_DIRECTION_NOT_CREATE_TOUR);
+			}
+			
 			travel.setId_user(u.getId());
 			travel.setUnique_id(createUniqueIdTravel(travelRepo));
 			
