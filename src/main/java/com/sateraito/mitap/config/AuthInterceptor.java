@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.model.response.ReponseMdl;
 import com.sateraito.mitap.service.MitapService;
+import com.sateraito.mitap.utils.Utils;
 
 public class AuthInterceptor implements HandlerInterceptor{
 
@@ -35,19 +36,11 @@ public class AuthInterceptor implements HandlerInterceptor{
         //TODO lấy các thông tin đăng nhập từ session
         List<Auth.Role> loginRoles = new ArrayList<Auth.Role>();
         try {
-        	Cookie[] cookie = request.getCookies();
-            for (Cookie itemCookie : cookie) {
-            	if(itemCookie.getName().equals("role")) {
-//            		loginRole = Auth.Role.valueOf(itemCookie.getValue());
-            		String[] arrStrRole = itemCookie.getValue().split("&");
-            		for (String strRole : arrStrRole) {
-            			Auth.Role role = Auth.Role.valueOf(strRole);
-            			loginRoles.add(role);
-    				}
-            		
-            	}
-    		}
-     
+        	String[] arrStrRoles = Constants.GSON.fromJson(request.getHeader("Set-Roles"), String[].class);
+        	for (String strRole : arrStrRoles) {
+    			Auth.Role role = Auth.Role.valueOf(strRole);
+    			loginRoles.add(role);
+			}
             //TODO kiểm tra sự tồn tại của loginRole trong role
             if (!checkRoleExists(roles, loginRoles)) {
             	ResponseEntity<ReponseMdl> responseEntity = MitapService.responseError(MitapService.NOT_PERMISSTION);
