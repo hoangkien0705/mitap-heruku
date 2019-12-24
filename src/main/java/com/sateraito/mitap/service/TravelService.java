@@ -29,7 +29,7 @@ public class TravelService extends MitapService {
 
 	public ResponseEntity<ReponseMdl> getWaitingTravel() {
 		StateTravelConvertor convertor = new StateTravelConvertor();
-		List<Travel> listWaitingTravel = travelRepo.findByWaitingTravel(convertor.convertToDatabaseColumn(EStateTravel.WAITING_REGISTER));
+		List<Travel> listWaitingTravel = travelRepo.findByStateTravel(convertor.convertToDatabaseColumn(EStateTravel.WAITING_REGISTER));
 		List<TravelResponse> waitingTravelResponses = new ArrayList<>();
 		for (Travel travel : listWaitingTravel) {
 			TravelResponse response = new TravelResponse(travel);
@@ -94,6 +94,16 @@ public class TravelService extends MitapService {
 
 	public ResponseEntity<ReponseMdl> directorsTravel(DirectorTravelRequest directorTravelRequest) {
 		return null;
+	}
+
+	public ResponseEntity<ReponseMdl> listTravel() {
+		List<Travel> listTravel = travelRepo.findByStateTravel(1);
+		List<TravelResponse> travelResponses = new ArrayList<>();
+		for (int i = 0; i < listTravel.size(); i++) {
+			TravelResponse response = new TravelResponse(listTravel.get(i));
+			travelResponses.add(response);
+		}
+		return responseSuccessDefault(travelResponses);
 	}
 
 }

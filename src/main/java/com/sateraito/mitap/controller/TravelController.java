@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sateraito.mitap.config.Auth;
 import com.sateraito.mitap.model.request.DirectorTravelRequest;
 import com.sateraito.mitap.model.request.RegisterTravelRequest;
 import com.sateraito.mitap.model.response.ReponseMdl;
@@ -56,6 +57,16 @@ public class TravelController extends MitapController {
 	/**
 	 * Lấy ra những travel đã bị hủy từ người du lịch hoặc từ chính người chỉ đường của người chỉ đường
 	 */
+	
+	/**
+	 * Lấy ra các travel đã được người du lịch tạo, chờ được liên kết
+	 */
+	@Auth(role = {Auth.Role.ROLE_USER_DIRECTOR})
+	@RequestMapping(value = "/list_travel", method = { RequestMethod.POST } ) 
+	public ResponseEntity<ReponseMdl> listTravel(HttpServletRequest request) {
+		return travelService.listTravel();
+	}
+	
 }
 
 
