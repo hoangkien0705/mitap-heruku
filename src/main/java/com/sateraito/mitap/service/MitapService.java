@@ -67,6 +67,7 @@ public class MitapService {
 	public static final int EMAIL_INVALIDATE = 18;
 	public static final int UPLOAD_IMAGE_FAIL = 19;
 	public static final int USER_DIRECTION_NOT_CREATE_TOUR = 20;
+	public static final int NOT_PERMISSTION = 21;
 	
 	public static Map<Integer, String> mapErrorReponse = new HashMap<>();
 	
@@ -90,6 +91,7 @@ public class MitapService {
 		mapErrorReponse.put(EMAIL_INVALIDATE, "Email invalidate");
 		mapErrorReponse.put(UPLOAD_IMAGE_FAIL, "Upload image fail");
 		mapErrorReponse.put(USER_DIRECTION_NOT_CREATE_TOUR, "The directions are not authorized to create tours");
+		mapErrorReponse.put(NOT_PERMISSTION, "You do not have access to this API");
 	}
 	
 	public static ResponseEntity<ReponseMdl> responseErrorDefault(Exception e) {

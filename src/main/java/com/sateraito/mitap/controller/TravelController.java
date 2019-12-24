@@ -62,7 +62,7 @@ public class TravelController extends MitapController {
 	 * Lấy ra các travel đã được người du lịch tạo, chờ được liên kết
 	 */
 	@Auth(role = {Auth.Role.ROLE_USER_DIRECTOR})
-	@RequestMapping(value = "/list_travel", method = { RequestMethod.POST } ) 
+	@RequestMapping(value = "/list_travel", method = { RequestMethod.GET } ) 
 	public ResponseEntity<ReponseMdl> listTravel(HttpServletRequest request) {
 		return travelService.listTravel();
 	}
