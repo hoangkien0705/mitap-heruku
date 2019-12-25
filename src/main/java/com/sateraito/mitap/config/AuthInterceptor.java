@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,9 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.model.response.ReponseMdl;
 import com.sateraito.mitap.service.MitapService;
-import com.sateraito.mitap.utils.Utils;
 
-public class AuthInterceptor implements HandlerInterceptor{
+public class AuthInterceptor implements HandlerInterceptor {
+	private static final String HEADER_STRING_ROLES = "Set-Roles";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -36,7 +35,7 @@ public class AuthInterceptor implements HandlerInterceptor{
         //TODO lấy các thông tin đăng nhập từ session
         List<Auth.Role> loginRoles = new ArrayList<Auth.Role>();
         try {
-        	String[] arrStrRoles = Constants.GSON.fromJson(request.getHeader("Set-Roles"), String[].class);
+        	String[] arrStrRoles = Constants.GSON.fromJson(request.getHeader(HEADER_STRING_ROLES), String[].class);
         	for (String strRole : arrStrRoles) {
     			Auth.Role role = Auth.Role.valueOf(strRole);
     			loginRoles.add(role);
