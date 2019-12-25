@@ -29,11 +29,19 @@ public class TravelResponse {
 		setUnique_id(travel.getUnique_id());
 		setJapanese_profile_required(travel.getJapanese_profile_required());
 		setList_place(travel.getList_place());
-		setTime_start(Constants.fomat.format(travel.getTime_start()));
-		setTime_finish(Constants.fomat.format(travel.getTime_finish()));
+		if(travel.getTime_start() != null) {
+			setTime_start(Constants.fomat.format(travel.getTime_start()));
+		}
+		if(travel.getTime_finish() != null) {
+			setTime_finish(Constants.fomat.format(travel.getTime_finish()));
+		}
 		setTransport(travel.getTransport());
-		setCreate_date(Constants.fomat.format(travel.getCreate_date()));
-		setUpdate_date(Constants.fomat.format(travel.getUpdate_date()));
+		if(travel.getCreate_date() != null) {
+			setCreate_date(Constants.fomat.format(travel.getCreate_date()));
+		}
+		if(travel.getUpdate_date() != null) {
+			setUpdate_date(Constants.fomat.format(travel.getUpdate_date()));
+		}
 		setLocation(travel.getLocation());
 		setPublic_flag(travel.isPublic_flag());
 		setDel_flag(travel.isDel_flag());

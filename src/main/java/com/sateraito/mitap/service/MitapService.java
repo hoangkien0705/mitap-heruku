@@ -68,6 +68,8 @@ public class MitapService {
 	public static final int UPLOAD_IMAGE_FAIL = 19;
 	public static final int USER_DIRECTION_NOT_CREATE_TOUR = 20;
 	public static final int NOT_PERMISSTION = 21;
+	public static final int TRAVEL_EXISTS = 22;
+	public static final int DIRECT_TRAVEL_EXISTS = 23;
 	
 	public static Map<Integer, String> mapErrorReponse = new HashMap<>();
 	
@@ -92,6 +94,8 @@ public class MitapService {
 		mapErrorReponse.put(UPLOAD_IMAGE_FAIL, "Upload image fail");
 		mapErrorReponse.put(USER_DIRECTION_NOT_CREATE_TOUR, "The directions are not authorized to create tours");
 		mapErrorReponse.put(NOT_PERMISSTION, "You do not have access to this API");
+		mapErrorReponse.put(TRAVEL_EXISTS, "Tour not exists");
+		mapErrorReponse.put(DIRECT_TRAVEL_EXISTS, "Registered with this tour");
 	}
 	
 	public static ResponseEntity<ReponseMdl> responseErrorDefault(Exception e) {

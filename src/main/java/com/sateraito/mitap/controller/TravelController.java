@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sateraito.mitap.config.Auth;
+import com.sateraito.mitap.model.request.DirectorSelectTourRequest;
 import com.sateraito.mitap.model.request.DirectorTravelRequest;
 import com.sateraito.mitap.model.request.RegisterTravelRequest;
 import com.sateraito.mitap.model.response.ReponseMdl;
@@ -62,11 +63,21 @@ public class TravelController extends MitapController {
 	 * Lấy ra các travel đã được người du lịch tạo, chờ được liên kết
 	 */
 	@Auth(role = {Auth.Role.ROLE_USER_DIRECTOR})
-	@RequestMapping(value = "/list_travel", method = { RequestMethod.GET } ) 
-	public ResponseEntity<ReponseMdl> listTravel(HttpServletRequest request) {
-		return travelService.listTravel();
+	@RequestMapping(value = "/list_travel_waiting", method = { RequestMethod.GET } ) 
+	public ResponseEntity<ReponseMdl> listTravelWaiting(HttpServletRequest request) {
+		String usernameAuthen = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return travelService.listTravelWaiting(usernameAuthen);
 	}
 	
+	/**
+	 * người chỉ đường đăng ký chọn tour du lịch để hướng dẫn
+	 */
+	@Auth(role = {Auth.Role.ROLE_USER_DIRECTOR})
+	@RequestMapping(value = "/director_select_tour", method = { RequestMethod.POST } ) 
+	public ResponseEntity<ReponseMdl> directorSelectTour(HttpServletRequest request, @RequestBody DirectorSelectTourRequest directorTravelRequest) {
+		String usernameAuthen = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return travelService.directorSelectTour(usernameAuthen, directorTravelRequest);
+	}
 }
 
 

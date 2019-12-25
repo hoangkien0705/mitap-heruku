@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sateraito.mitap.converter.DeleteFlagConvertor;
 import com.sateraito.mitap.converter.StateDirectTravelConvertor;
+import com.sateraito.mitap.utils.EDeleleFlag;
 import com.sateraito.mitap.utils.EStateDirectTravel;
 
 import lombok.Data;
@@ -30,15 +32,14 @@ public class DirectTravel implements Serializable {
 
 	private String unique_id;
 	private long id_user;
-	private long id_direct_user;
+	private long id_travel;
+	private Date create_date;
 	private Date update_date;
-	private int del_flag;
-
+	private String message;
+	
+	@Convert(converter = DeleteFlagConvertor.class)
+	private EDeleleFlag del_flag;
 	@Convert(converter = StateDirectTravelConvertor.class)
 	private EStateDirectTravel state;
-
-	private Date update_time;
-	private String message;
-	private Date create_date;
 
 }

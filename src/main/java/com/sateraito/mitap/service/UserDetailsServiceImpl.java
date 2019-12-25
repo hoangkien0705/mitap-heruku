@@ -43,7 +43,7 @@ import com.sateraito.mitap.repo.UserRepo;
 import com.sateraito.mitap.twilio.TwilioSms;
 import com.sateraito.mitap.utils.EMitapRole;
 import com.sateraito.mitap.utils.ESMSTypeAccuracyPhone;
-import com.sateraito.mitap.utils.ExistsUniqueId;
+import com.sateraito.mitap.utils.ExistsRow;
 import com.sateraito.mitap.utils.RandomString;
 import com.sateraito.mitap.utils.Utils;
 import com.sateraito.mitap.validator.EmailValidator;
@@ -341,7 +341,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 	
 	private String createUniqueUsername(UserRepo userRepo) {
 		String username = Utils.generateUniqueId();
-		while (userRepo.checkUniqueUsernameExists(username) == ExistsUniqueId.EXISTS) {
+		while (userRepo.checkUniqueUsernameExists(username) == ExistsRow.EXISTS) {
 			username = Utils.generateUniqueId();
 		}
 		return username;
@@ -349,7 +349,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 	
 	private static String createUniqueIdUser(UserRepo userRepo) {
 		String uniqueId = Utils.generateUniqueId();
-		while (userRepo.checkUniqueIdExists(uniqueId) == ExistsUniqueId.EXISTS) {
+		while (userRepo.checkUniqueIdExists(uniqueId) == ExistsRow.EXISTS) {
 			uniqueId = Utils.generateUniqueId();
 		}
 		return uniqueId;
@@ -357,7 +357,7 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 	
 	private static String createUniqueIdSmsAccuracy(SmsAccuracyPhoneRepo smsAccuracyRepo) {
 		String uniqueId = Utils.generateUniqueId();
-		while (smsAccuracyRepo.checkUniqueIdExists(uniqueId) == ExistsUniqueId.EXISTS) {
+		while (smsAccuracyRepo.checkUniqueIdExists(uniqueId) == ExistsRow.EXISTS) {
 			uniqueId = Utils.generateUniqueId();
 		}
 		return uniqueId;
