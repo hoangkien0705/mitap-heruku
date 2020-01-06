@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.sateraito.mitap.entity.LevelJapanese;
 import com.sateraito.mitap.model.response.ReponseMdl;
 import com.sateraito.mitap.repo.DealHistoryRepo;
 import com.sateraito.mitap.repo.DirectTravelRepo;
+import com.sateraito.mitap.repo.LevelJapaneseRepo;
 import com.sateraito.mitap.repo.PlaceRepo;
 import com.sateraito.mitap.repo.PlaceTravelRepo;
 import com.sateraito.mitap.repo.PriceServiceRepo;
@@ -47,6 +49,8 @@ public class MitapService {
 	protected TravelRepo travelRepo;
 	@Autowired
 	protected UserDirectionRepo userDirectionRepo;
+	@Autowired
+	protected LevelJapaneseRepo levelJapaneseRepo;
 	
 	public static final int ERROR_DEFAULT = 1;
 	public static final int USERNAME_ALREADY_EXIST = 3;

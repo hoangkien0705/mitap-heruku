@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.converter.StateTravelConvertor;
 import com.sateraito.mitap.entity.DirectTravel;
+import com.sateraito.mitap.entity.LevelJapanese;
 import com.sateraito.mitap.entity.MitapUser;
 import com.sateraito.mitap.entity.Travel;
 import com.sateraito.mitap.entity.UserDirection;
@@ -26,6 +27,7 @@ import com.sateraito.mitap.utils.EDeleleFlag;
 import com.sateraito.mitap.utils.EStateDirectTravel;
 import com.sateraito.mitap.utils.EStateTravel;
 import com.sateraito.mitap.utils.ExistsRow;
+import com.sateraito.mitap.utils.Log;
 import com.sateraito.mitap.utils.Utils;
 
 @Service
@@ -112,6 +114,12 @@ public class TravelService extends MitapService {
 		List<TravelResponse> travelResponses = new ArrayList<>();
 		for (int i = 0; i < listTravel.size(); i++) {
 			TravelResponse response = new TravelResponse(listTravel.get(i));
+			try {
+				LevelJapanese levelJapanese = levelJapaneseRepo.findOne(Long.valueOf(listTravel.get(i).getJapanese_profile_required()));
+				response.setJapanese_profile_required_name(levelJapanese.getName());
+			} catch (Exception e) {
+				Log.d("name level not found");
+			}
 			//TODO kiểm tra travel này đã được người dùng này đăng ký chưa, nếu đã đăng ký rồi thì bỏ qua
 			if(directTravelRepo.checkDirectTravelExists(u.getId(), listTravel.get(i).getId()) == ExistsRow.NO_EXISTS){
 				travelResponses.add(response);

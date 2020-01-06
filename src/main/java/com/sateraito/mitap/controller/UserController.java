@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sateraito.mitap.constant.Constants;
 import com.sateraito.mitap.model.request.UpdatePasswordByTokenRequest;
@@ -100,6 +101,14 @@ public class UserController extends MitapController {
 	public ResponseEntity<ReponseMdl> userInfo(HttpServletRequest request) {
 		String usernameAuthen = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return userService.userInfo(usernameAuthen);
+	}
+	
+	/**
+	 * Lấy Các thông tin cơ bản của một user khác 
+	 */
+	@RequestMapping(value = "/get_user_info_by_id", method = { RequestMethod.GET }) 
+	public ResponseEntity<ReponseMdl> userInfoById(HttpServletRequest request, @RequestParam("id") Long idUser) {
+		return userService.userInfoById(idUser);
 	}
 	
 	/*

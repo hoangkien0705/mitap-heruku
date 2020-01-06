@@ -8,6 +8,7 @@ public class TravelResponse {
 	private long id;
 	private String unique_id;
 	private int japanese_profile_required;
+	private String japanese_profile_required_name;
 	private String list_place;
 	private String time_start;
 	private String time_finish;
@@ -73,6 +74,14 @@ public class TravelResponse {
 
 	public void setJapanese_profile_required(int japanese_profile_required) {
 		this.japanese_profile_required = japanese_profile_required;
+	}
+	
+	public String getJapanese_profile_required_name() {
+		return japanese_profile_required_name;
+	}
+
+	public void setJapanese_profile_required_name(String japanese_profile_required_name) {
+		this.japanese_profile_required_name = japanese_profile_required_name;
 	}
 
 	public String getList_place() {

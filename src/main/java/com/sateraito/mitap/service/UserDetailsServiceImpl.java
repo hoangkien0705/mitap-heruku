@@ -366,6 +366,23 @@ public class UserDetailsServiceImpl extends MitapService implements UserDetailsS
 
 	public ResponseEntity<ReponseMdl> userInfo(String usernameAuthen) {
 		MitapUser user = userRepo.findByUsername(usernameAuthen);
+		if(user == null) {
+			return responseError(USER_NOT_EXIST);
+		}
+		
+		return getUserInfo(user);
+	}
+	
+	public ResponseEntity<ReponseMdl> userInfoById(Long idUser) {
+		MitapUser user = userRepo.findOne(idUser);
+		if(user == null) {
+			return responseError(USER_NOT_EXIST);
+		}
+		
+		return getUserInfo(user);
+	}
+	
+	private ResponseEntity<ReponseMdl> getUserInfo(MitapUser user) {
 		UserInfoResponse userInfo = new UserInfoResponse(user);
 		
 		List<Role> arrRole = roleRepo.findByUserId(user.getId());

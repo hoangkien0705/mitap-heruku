@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,6 +35,7 @@ public class AuthInterceptor implements HandlerInterceptor {
  
         //TODO lấy các thông tin đăng nhập từ session
         List<Auth.Role> loginRoles = new ArrayList<Auth.Role>();
+//        String usernameAuthen = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
         	String[] arrStrRoles = Constants.GSON.fromJson(request.getHeader(HEADER_STRING_ROLES), String[].class);
         	for (String strRole : arrStrRoles) {
