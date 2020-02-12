@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.sateraito.mitap.entity.LevelJapanese;
 import com.sateraito.mitap.model.response.ReponseMdl;
 import com.sateraito.mitap.repo.DealHistoryRepo;
 import com.sateraito.mitap.repo.DirectTravelRepo;
